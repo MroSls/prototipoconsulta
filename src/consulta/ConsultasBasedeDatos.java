@@ -11,8 +11,29 @@ public class ConsultasBasedeDatos {
     public static String sSQL;
     Connection cn = MYSQL.conectar();
     
-    public void cargarTabla(){
-        
+    public void cargarTabla(JTable TABLA, String NOMBRE_MASCOTA){
+        DefaultTableModel mode = (DefaultTableModel) TABLA.getModel();
+        sSQL = "SELECT * FROM consultas WHERE NOMBRE_MASCOTA='" + NOMBRE_MASCOTA + "'";
+        mode.setRowCount(0);
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sSQL);
+            while (rs.next()) {
+                datos[0] = rs.getString("NOMBRE_MASCOTA");
+                datos[1] = rs.getString("NOMBRE_PROPIETARIO");
+                datos[2] = rs.getDate("FECHA").toString();
+                datos[3]=rs.getString("SERVICIO");
+                datos[4]=rs.getFloat("PRECIO");
+                datos[5]=rs.getString("MOTIVO");
+                datos[6]=rs.getString("DIAGNOSTICO");
+                datos[7]=rs.getString("RECETA");
+                datos[8]=rs.getString("MEDICO");
+                mode.addRow(datos);
+            }
+            TABLA.setModel(mode);
+        } catch (SQLException ex) {
+            System.out.println("ERROR\n" + ex);
+        }
     }
     
     public void subirDatos(String NOMBRE_MASCOTA, String NOMBRE_PROPIETARIO, java.sql.Date FECHA, String SERVICIO, float PRECIO, String MOTIVO, String DIAGNOSTICO, String RECETA, String MEDICO){

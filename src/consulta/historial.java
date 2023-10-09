@@ -5,9 +5,12 @@ package consulta;
  * @author MASN0
  */
 public class historial extends javax.swing.JFrame {
+    
+    ConsultasBasedeDatos cbd = new ConsultasBasedeDatos();
 
     public historial() {
         initComponents();
+        cbd.cargarTabla(jTable1, "Merlina");
     }
 
     /**
@@ -174,7 +177,7 @@ public class historial extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
